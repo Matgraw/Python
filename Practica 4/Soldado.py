@@ -1,0 +1,3 @@
+class Soldado:
+
+    pass
