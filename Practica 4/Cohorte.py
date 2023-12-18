@@ -9,7 +9,7 @@ class Cohorte:
         self.tribuno = None
 
     def poblar(self):
-        self.tribuno = Tribuno
+        self.tribuno = Tribuno()
 
         for c in range(6):
             centuria = Centuria()

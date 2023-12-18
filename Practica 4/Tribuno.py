@@ -1,4 +1,7 @@
-class Tribuno:
+from Oficial import Oficial
+
+
+class Tribuno(Oficial):
 
     def __init__(self):
-        pass
+        super().__init__()

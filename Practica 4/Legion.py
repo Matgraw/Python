@@ -7,6 +7,7 @@ class Legion:
     def __init__(self):
         self.cohortes = []
         self.comandante = None
+        self.campamento = None
 
     def poblar(self):
         self.comandante = Comandante()
@@ -32,3 +33,6 @@ class Legion:
             numero_oficiales += c.obtener_oficiales()
 
         return numero_oficiales
+
+    def establecer_campamento(self, campamento):
+        self.campamento = campamento

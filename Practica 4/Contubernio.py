@@ -1,5 +1,7 @@
 from Optione import Optione
-from Soldado import Soldado
+from Infanteria import Infanteria
+from Caballeria import Caballeria
+from random import *
 
 
 class Contubernio:
@@ -12,7 +14,11 @@ class Contubernio:
         self.optione = Optione()
 
         for s in range(8):
-            self.soldados.append(Soldado())
+            tipo_soldado = randint(1, 2)
+            if tipo_soldado == 1:
+                self.soldados.append(Infanteria())
+            else:
+                self.soldados.append(Caballeria())
 
     def obtener_soldados(self):
         return len(self.soldados)

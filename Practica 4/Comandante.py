@@ -1,4 +1,7 @@
-class Comandante:
+from Oficial import Oficial
+
+
+class Comandante(Oficial):
 
     def __init__(self):
-        pass
+        super().__init__()

@@ -1,3 +1,8 @@
-class Soldado:
+from Militar import Militar
 
-    pass
+
+class Soldado(Militar):
+
+    def __init__(self):
+        super().__init__()
+        self.puntos_vida = 150
