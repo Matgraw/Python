@@ -7,8 +7,9 @@ from random import *
 class Contubernio:
 
     def __init__(self):
-        self.soldados = []
+        self.identificador = ""
         self.optione = None
+        self.soldados = []
 
     def poblar(self):
         self.optione = Optione()
@@ -16,13 +17,28 @@ class Contubernio:
         for s in range(8):
             tipo_soldado = randint(1, 2)
             if tipo_soldado == 1:
-                self.soldados.append(Infanteria())
+                soldado = Infanteria()
+                soldado.establecer_identificador(f"#{s+1}")
+                self.soldados.append(soldado)
             else:
-                self.soldados.append(Caballeria())
+                soldado = Caballeria()
+                soldado.establecer_identificador(f"#{s+1}")
+                self.soldados.append(soldado)
 
-    def obtener_soldados(self):
+    def obtener_numero_soldados(self):
         return len(self.soldados)
 
-    def obtener_oficiales(self):
+    def obtener_numero_oficiales(self):
         if self.optione:
             return 1
+
+    def establecer_identificador(self, identificador):
+        self.identificador = identificador
+
+    def obtener_unidades(self):
+        lista_unidades = [self.optione]
+
+        for s in self.soldados:
+            lista_unidades.append(s)
+
+        return lista_unidades
