@@ -27,17 +27,11 @@ class Armeria:
             self.armas.append(Escudo())
 
     def devolver_arma(self, arma):
-        print("*" * 50)
-        print("Devolviendo arma a la armería...")
         self.armas.append(arma)
-        print("Arma devuelta correctamente!!!!")
 
     def recibir_cargamento(self, armas):
-        print("*"*50)
-        print("Recibiendo cargamento de armas...")
         for a in armas:
             self.armas.append(a)
-        print("Armería cargada correctamente!!!!")
 
     def hacer_inventario(self):
         print("*" * 50)
@@ -63,108 +57,60 @@ class Armeria:
         print(f"- {total_escudos} escudos")
 
     def pedir_arma_por_tipo(self, militar, tipo_arma=None):
-        # Si hay armas en el amacen, se empiezan las comprobaciones para armar a los militares
+        arma_principal = None
+        gladios = [arma for arma in self.armas if type(arma).__name__ == "Gladio"]
+        escudos = [arma for arma in self.armas if type(arma).__name__ == "Escudo"]
+
+        # Si hay armas en la armería, se empiezan las comprobaciones para armar a los militares
         if len(self.armas) > 0:
             # Si se ha rellenado el tipo de arma
             if tipo_arma:
                 # Si el tipo de arma es uno de los permitidos
                 if tipo_arma in ['Arco', 'Escudo', 'Gladio', 'Pilum']:
+                    armas_por_tipo = [arma for arma in self.armas if type(arma).__name__ == tipo_arma]
+
                     # Si el militar que pide el arma es un oficial
                     if type(militar).__name__ in ['Comandante', 'Centurion', 'Tribuno', 'Optione']:
                         # Si el tipo de arma es un Gladio
                         if tipo_arma == 'Gladio':
                             # Se coge el primer Gladio de la lista de armas.
-                            arma_elegida = next((arma for arma in self.armas if type(arma).__name__ == tipo_arma), None)
-                            # Si se ha encontrado el arma, se le asigna al oficial
-                            if arma_elegida:
-                                militar.establecer_arma(arma_elegida)
-                                self.armas.remove(arma_elegida)
-                            # Si no se ha encontrado es que no quedan Gladios en la armaría
-                            else:
-                                print(f"{type(militar).__name__} {militar.identificador} no quedan armas de tipo {tipo_arma} en la armeria.")
-                        # Si no es un Gladio no se le permite armarse
-                        else:
-                            print(f"{type(militar).__name__} {militar.identificador} eres un oficial y sólo puedes armarte con Gladios")
+                            arma_principal = random.choice(armas_por_tipo)
                     # Si el militar que pide el arma es un soldado de infanteria
                     elif type(militar).__name__ == 'Infanteria':
-                        # Se elige el primer arma del tipo elegido
-                        arma_elegida = next((arma for arma in self.armas if type(arma).__name__ == tipo_arma), None)
-                        # si se ha encontrado el arma se le asigna al soldado
-                        if arma_elegida:
-                            militar.establecer_arma(arma_elegida)
-                            self.armas.remove(arma_elegida)
-                        # Si no se ha encontrado es que no quedan armas del tipo elegido
-                        else:
-                            print(f"{type(militar).__name__} {militar.identificador} no quedan armas de tipo {tipo_arma} en la armeria.")
-
                         # Se elige el primer Escudo de la lista de armas
-                        arma_elegida = next((arma for arma in self.armas if type(arma).__name__ == 'Escudo'), None)
+                        arma_secundaria = random.choice(escudos)
                         # si se ha encontrado el arma se le asigna al soldado
-                        if arma_elegida:
-                            militar.establecer_arma(arma_elegida)
-                            self.armas.remove(arma_elegida)
-                        # Si no se ha encontrado es que no quedan armas del tipo elegido
-                        else:
-                            print(f"{type(militar).__name__} {militar.identificador} no quedan Escudos en la armeria.")
+                        if arma_secundaria:
+                            militar.establecer_arma(arma_secundaria)
+                            self.armas.remove(arma_secundaria)
+                        # Se elige el primer arma del tipo elegido
+                        arma_principal = random.choice(armas_por_tipo)
                     # Si el militar que pide el arma es un soldado
                     else:
                         # Se elige el primer arma del tipo elegido
-                        arma_elegida = next((arma for arma in self.armas if type(arma).__name__ == tipo_arma), None)
-                        # si se ha encontrado el arma se le asigna al soldado
-                        if arma_elegida:
-                            militar.establecer_arma(arma_elegida)
-                            self.armas.remove(arma_elegida)
-                        # Si no se ha encontrado es que no quedan armas del tipo elegido
-                        else:
-                            print(f"{type(militar).__name__} {militar.identificador} no quedan armas de tipo {tipo_arma} en la armeria.")
-                # Si no es un arma de los tipos permitidos
-                else:
-                    print(f"{type(militar).__name__} {militar.identificador} no existen armas del tipo {tipo_arma}")
+                        arma_principal = random.choice(armas_por_tipo)
             # Si no se ha rellenado el tipo de arma, se asigna un Gladio de manera aleatoria
             else:
                 # Si el militar es oficial, se le asigna un Gladio
                 if type(militar).__name__ in ['Comandante', 'Centurion', 'Tribuno', 'Optione']:
                     # Se coge el primer Gladio de la lista de armas.
-                    arma_elegida = next((arma for arma in self.armas if type(arma).__name__ == 'Gladio'), None)
-                    # si se ha encontrado el arma se le asigna al oficial
-                    if arma_elegida:
-                        militar.establecer_arma(arma_elegida)
-                        self.armas.remove(arma_elegida)
-                    # Si no se ha encontrado es que no quedan armas del tipo elegido
-                    else:
-                        print(f"{type(militar).__name__} {militar.identificador} no quedan gladios en la armeria.")
-                        # Si el militar que pide el arma es un soldado de infanteria
+                    arma_principal = random.choice(gladios)
+                # Si el militar que pide el arma es un soldado de infanteria
                 elif type(militar).__name__ == 'Infanteria':
-                    # Se coge el primer arma de la lista de armas.
-                    arma_elegida = random.choice(self.armas)
-                    # si se ha encontrado el arma se le asigna al soldado
-                    if arma_elegida:
-                        militar.establecer_arma(arma_elegida)
-                        self.armas.remove(arma_elegida)
-                    # Si no se ha encontrado es que no quedan armas del tipo elegido
-                    else:
-                        print(f"{type(militar).__name__} {militar.identificador} no quedan armas en la armeria.")
-
                     # Se elige el primer Escudo de la lista de armas
-                    arma_elegida = next((arma for arma in self.armas if type(arma).__name__ == 'Escudo'), None)
+                    arma_secundaria = random.choice(escudos)
                     # si se ha encontrado el arma se le asigna al soldado
-                    if arma_elegida:
-                        militar.establecer_arma(arma_elegida)
-                        self.armas.remove(arma_elegida)
-                    # Si no se ha encontrado es que no quedan armas del tipo elegido
-                    else:
-                        print(f"{type(militar).__name__} {militar.identificador} no quedan Escudos en la armeria.")
+                    if arma_secundaria:
+                        militar.establecer_arma(arma_secundaria)
+                        self.armas.remove(arma_secundaria)
+                    # Se coge el primer arma de la lista de armas.
+                    arma_principal = random.choice(self.armas)
                 # Si el militar es un soldado, se le asigna un arma aleatoria
                 else:
                     # Se coge el primer arma de la lista de armas.
-                    arma_elegida = random.choice(self.armas)
-                    # si se ha encontrado el arma se le asigna al soldado
-                    if arma_elegida:
-                        militar.establecer_arma(arma_elegida)
-                        self.armas.remove(arma_elegida)
-                    # Si no se ha encontrado es que no quedan armas del tipo elegido
-                    else:
-                        print(f"{type(militar).__name__} {militar.identificador} no quedan armas en la armeria.")
-        # Si no quedan armas en la armeria
-        else:
-            print(f"{type(militar).__name__} {militar.identificador} no quedan armas en la armeria")
+                    arma_principal = random.choice(self.armas)
+
+            # Asignar el arma principal a cada militar
+            if arma_principal:
+                militar.establecer_arma(arma_principal)
+                self.armas.remove(arma_principal)

@@ -1,2 +1,8 @@
+from Botiquin import Botiquin
+
+
 class Venda:
-    pass
+
+    def __init__(self):
+        super().__init__()
+        self.puntos_salud = 25
