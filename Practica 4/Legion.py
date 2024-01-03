@@ -56,3 +56,13 @@ class Legion:
                 self.campamento.obtener_armeria().pedir_arma_por_tipo(u)
         else:
             print("No pueden armarse sus tropas porque la legión no está asentada en ningún campamento")
+
+    def curar_soldados(self):
+        if self.campamento:
+            unidades = self.obtener_unidades()
+            unidades_heridas = [u for u in unidades if u.puntos_vida < 100]
+
+            for u in unidades_heridas:
+                self.campamento.obtener_hospital().curar(u)
+        else:
+            print("No pueden curarse sus tropas porque la legión no está asentada en ningún campamento")

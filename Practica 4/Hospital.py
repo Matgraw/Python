@@ -17,11 +17,8 @@ class Hospital:
             self.materiales_hospital.append(Paquete())
 
     def recibir_cargamento(self, materiales):
-        print("*"*50)
-        print("Recibiendo cargamento de materiales de hospital...")
         for m in materiales:
             self.materiales_hospital.append(m)
-        print("Hospital cargado correctamente!!!!")
 
     def hacer_inventario(self):
         print("*" * 50)
@@ -60,10 +57,10 @@ class Hospital:
                 puntos_vida_maximo = 150
 
                 # Si tiene la salud al completo no tiene sentido curarse.
-                if puntos_vida_maximo > militar.puntos_vida >= puntos_vida_maximo - 30:
+                if puntos_vida_maximo > militar.puntos_vida >= puntos_vida_maximo - 55:
                     material_curar = random.choice(vendas)
                 # Si ha bajado mas de 30 puntos, se usa un paquete:
-                elif militar.puntos_vida < puntos_vida_maximo - 30:
+                elif militar.puntos_vida < puntos_vida_maximo - 55:
                     material_curar = random.choice(paquetes)
 
             # si se ha encontrado el material, se le suman los puntos de vida
